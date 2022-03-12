@@ -71,6 +71,7 @@ if (isset($_GET['orderId']) && $_GET['orderId'] == 'order') {
                             <td><?php
                                 $vat = $sum * 0.05;
                                 $grandTotal = $sum + $vat;
+                                Session::set("grandTotal",$grandTotal);
                                 echo "$grandTotal" . "$";
                                 ?></td>
                         </tr>
