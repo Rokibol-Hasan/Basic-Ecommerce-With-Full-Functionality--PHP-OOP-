@@ -81,6 +81,7 @@ if (isset($_POST['submit'])) {
 						<td><?php
 							$vat = $sum * 0.05;
 							$grandTotal = $sum + $vat;
+							Session::set("grandTotal", $grandTotal);
 							echo "$grandTotal" . "$";
 							?></td>
 					</tr>

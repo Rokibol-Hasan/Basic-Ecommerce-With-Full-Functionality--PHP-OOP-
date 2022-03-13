@@ -46,6 +46,7 @@ $customer = new Customer();
         });
     </script>
 </head>
+
 <body>
     <div class="wrap">
         <div class="header_top">
@@ -101,16 +102,24 @@ $customer = new Customer();
                 <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a> </li>
                 <li><a href="topbrands.php">Top Brands</a></li>
+
                 <?php
                 $cart = $ct->checkCartData();
                 if (!empty($cart)) { ?>
                     <li><a href="cart-user.php">Cart</a></li>
                 <?php } ?>
+
                 <?php
                 $profile = Session::get("customerLogin");
                 if ($profile == true) { ?>
                     <li><a href="profile.php"><i class="fa fa-user-circle-o"> Profile</i></a></li>
                 <?php  } ?>
+                <?php
+                $customerId = Session::get("customerId");
+                $order = $ct->checkOrder($customerId);
+                if (!empty($order)) { ?>
+                    <li><a href="order.php">Track Order</a></li>
+                <?php } ?>
                 <li><a href="contact.php"><i class="fa fa-id-badge"> Contact</i></a></li>
                 <div class="clear"></div>
             </ul>

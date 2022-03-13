@@ -110,6 +110,24 @@ class Cart
             }
         }
     }
+    public function getOrderedProduct($customerId){
+        $query = "SELECT * FROM tbl_order WHERE customerId = '$customerId' ORDER BY id DESC";
+        $getOrderdProduct = $this->db->select($query);
+        return $getOrderdProduct;
+
+    }
+    public function checkOrder($customerId)
+    {
+        $query = "SELECT * FROM tbl_order WHERE customerId = '$customerId'";
+        $getCartData = $this->db->select($query);
+        return $getCartData;
+    }
+    public function deleteOrder($id)
+    {
+        $query = "DELETE FROM tbl_order WHERE id = '$id'";
+        $deleteOrder = $this->db->delete($query);
+        return $deleteOrder;
+    }
 
 
 

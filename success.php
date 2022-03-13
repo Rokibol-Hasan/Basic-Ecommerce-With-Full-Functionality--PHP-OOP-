@@ -13,9 +13,10 @@ if ($login == false) {
                     <i class="checkmark">✓</i>
                 </div>
                 <h1>Success</h1>
-                <h3>You Have Orderd Product Of <?php echo Session::get("sum") ?>$ (inc. 5% vat)</h3>
+                <h3>You Have Orderd Product Of <?php echo Session::get("grandTotal") ?>$ (inc. 5% vat)</h3>
                 <p>We received your purchase request;<br /> we'll be in touch shortly!</p>
             </div>
+            <a href="order.php" class="btn btn-info">Track Order</a>
         </section>
 
     </div>
