@@ -19,6 +19,13 @@ if (isset($_POST['submit'])) {
 			if ($getDetails) {
 				while ($details = $getDetails->fetch_assoc()) { ?>
 					<div class="cont-desc span_1_of_2">
+						<div class="mb-3">
+							<?php
+							if (isset($addToCart)) {
+								echo "$addToCart";
+							}
+							?>
+						</div>
 						<div class="grid images_3_of_2">
 							<img src="admin/<?php echo $details['image'] ?>" alt="" height="100%" width="100%" />
 						</div>
@@ -34,13 +41,6 @@ if (isset($_POST['submit'])) {
 									<input type="number" class="buyfield" name="quantity" value="1" />
 									<input type="submit" class="buysubmit" name="submit" value="Buy Now" />
 								</form>
-								<span class="errors">
-								<?php
-								if (isset($addToCart)) {
-									echo "$addToCart";
-								}
-								?>
-								</span>
 							</div>
 						</div>
 						<div class="product-desc">
@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
 							$getAllCat = $cat->getAllCat();
 							if ($getAllCat) {
 								while ($category = $getAllCat->fetch_assoc()) { ?>
-									<li><a href="productbycat.php?catId=<?php echo $category['catId']?>"><?php echo $category['catName'] ?></a></li>
+									<li><a href="productbycat.php?catId=<?php echo $category['catId'] ?>"><?php echo $category['catName'] ?></a></li>
 							<?php }
 							} ?>
 						</ul>

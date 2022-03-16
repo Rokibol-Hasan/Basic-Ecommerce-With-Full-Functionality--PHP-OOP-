@@ -107,6 +107,7 @@ class Cart
 
                 $query = "INSERT INTO tbl_order (customerId,productId,productName,quantity,price,image)VALUES('$customerId','$productId','$productName','$quantity','$price','$image')";
                 $insertOrder = $this->db->insert($query);
+                return $insertOrder;
             }
         }
     }
@@ -127,6 +128,29 @@ class Cart
         $query = "DELETE FROM tbl_order WHERE id = '$id'";
         $deleteOrder = $this->db->delete($query);
         return $deleteOrder;
+    }
+    public function getAllOrderdProduct(){
+        $query = "SELECT * FROM tbl_order ORDER BY DATE DESC";
+        $getOrderdData = $this->db->select($query);
+        return $getOrderdData;
+    }
+    public function updateStatus($id){
+        $orderId = mysqli_real_escape_string($this->db->link,$id);
+        $query = "UPDATE tbl_order
+        SET
+        status = 1
+        WHERE id = '$orderId'
+        ";
+        $updateStatus = $this->db->update($query);
+        if ($updateStatus) {
+            $msg = "<span class = 'success mx-3'>Updated Successfully!</span>";
+            return $msg;
+        }else {
+            $msg = "<span class = 'error mx-3'>Something Went Wrong</span>";
+            return $msg;
+        }
+        
+
     }
 
 

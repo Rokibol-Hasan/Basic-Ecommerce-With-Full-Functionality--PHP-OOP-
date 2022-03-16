@@ -1,7 +1,7 @@
 ﻿<?php include 'inc/header.php'; ?>
 <?php include 'inc/sidebar.php'; ?>
 <?php include "../classes/product.php"; ?>
-<?php include "../helpers/format.php"; ?>
+
 <?php
 if (isset($_GET['editproduct'])) {
 	$productId = $_GET['editProduct'];

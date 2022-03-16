@@ -1,9 +1,11 @@
 ﻿<?php include 'inc/header.php'; ?>
 <?php include 'inc/sidebar.php'; ?>
 <?php include "../lib/database.php";?>
+<?php include "../classes/product.php";?>
 <?php 
 
 $db = new Database();
+$pd = new Product();
 
 
 ?>
@@ -47,7 +49,13 @@ $db = new Database();
               <i class="fa fa-download" aria-hidden="true"></i>
             </div>
             <div class="text-section">
-              <h1>8.25 <small>k</small></h1>
+              <?php 
+              $totalProduct = $pd->getAllProduct();
+              $allRows = mysqli_num_rows($totalProduct);
+
+              
+              ?>
+              <h1><?php echo $allRows ?> Piece</h1>
               <span>12% have started download</span>
             </div>
             <div style="clear:both;"></div>

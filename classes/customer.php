@@ -114,4 +114,11 @@ class Customer
             }
         }
     }
+    public function getCustomerById($customerId)
+    {
+        $customerId = Session::get("customerId");
+        $query = "SELECT * FROM tbl_customer WHERE id = '$customerId'";
+        $getCustomerInfo = $this->db->select($query);
+        return $getCustomerInfo;
+    }
 }
