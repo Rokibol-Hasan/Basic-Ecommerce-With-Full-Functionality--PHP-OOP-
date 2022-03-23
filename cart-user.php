@@ -5,9 +5,6 @@ if (isset($_GET['delCart'])) {
 	$cartId = $_GET['delCart'];
 	$removeFromCart = $ct->removeFromCartById($cartId);
 }
-// if (!isset($_GET['id'])) {
-// 	echo "<meta http-equiv='refresh' content ='0';URL=?id=live/>";
-// }
 if (isset($_POST['submit'])) {
 	$cartId = $_POST['cartId'];
 	$quantity = $_POST['quantity'];

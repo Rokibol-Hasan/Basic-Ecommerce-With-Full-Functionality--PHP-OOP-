@@ -7,13 +7,20 @@ if ($login == false) {
 
 if (isset($_GET['deleteOrder'])) {
     $id = $_GET['deleteOrder'];
-    $deleteOrder = $ct->deleteOrder($id);
+    $deleteOrder = $ct->deleteOrderById($id);
 }
 ?>
 
 <div class="main">
     <div class="content">
         <div class="section group order-table">
+            <?php 
+            if (isset($deleteOrder)) {
+                echo $deleteOrder;
+            }
+            
+            
+            ?>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
@@ -48,7 +55,7 @@ if (isset($_GET['deleteOrder'])) {
                                     if ($order['status'] == 0) {
                                         echo "Pending";
                                     } else {
-                                        echo "Shifted";
+                                        echo "Shipped";
                                     }
                                     ?>
                                 </td>

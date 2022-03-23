@@ -27,33 +27,32 @@ if (isset($_GET['profileId'])) {
                             <tr>
                                 <td>
                                     <div>
-                                        <input type="text" name="name" value="<?php echo $result['name'] ?>">
+                                        <input type="text" name="name" placeholder="Name" value="<?php echo $result['name'] ?>">
                                     </div>
 
                                     <div>
-                                        <input type="text" name="city" value="<?php echo $result['city'] ?>">
+                                        <input type="text" name="city" placeholder="City" value="<?php echo $result['city'] ?>">
                                     </div>
 
                                     <div>
-                                        <input type="text" name="zip" value="<?php echo $result['zip'] ?>">
+                                        <input type="text" name="zip" placeholder="Zip-Code" value="<?php echo $result['zip'] ?>">
                                     </div>
                                     <div>
-                                        <input type="text" name="email" value="<?php echo $result['email'] ?>">
+                                        <input type="text" name="email" placeholder="Mail" value="<?php echo $result['email'] ?>">
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <input type="text" name="address" value="<?php echo $result['address'] ?>">
+                                        <input type="text" name="address" placeholder="Address" value="<?php echo $result['address'] ?>">
                                     </div>
                                     <div>
-                                        <input type="text" name="country" value="<?php echo $result['country'] ?>">
-                                    </div>
-
-                                    <div>
-                                        <input type="text" name="phone" value="<?php echo $result['phone'] ?>">
+                                        <input type="text" name="country" placeholder="Country" value="<?php echo $result['country'] ?>">
                                     </div>
                                     <div>
-                                        <input type="password" name="pass" value="<?php echo $result['pass'] ?>">
+                                        <input type="text" name="phone" placeholder="Phone" value="<?php echo $result['phone'] ?>">
+                                    </div>
+                                    <div>
+                                        <input type="password" name="pass" placeholder="Password" value="<?php echo $result['pass'] ?>">
                                     </div>
                                 </td>
                             </tr>

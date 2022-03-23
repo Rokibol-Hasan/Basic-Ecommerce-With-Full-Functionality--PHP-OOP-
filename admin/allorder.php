@@ -11,6 +11,10 @@ if (isset($_GET['shiftid'])) {
 	$orderId = $_GET['shiftid'];
 	$updateStatus = $ct->updateStatus($orderId);
 }
+if (isset($_GET['removeOrder'])) {
+	$id = $_GET['removeOrder'];
+	$removeOrder = $ct->deleteOrderById($id);
+}
 ?>
 <div class="grid_10">
 	<div class="box round first grid">
@@ -20,6 +24,9 @@ if (isset($_GET['shiftid'])) {
 				<?php
 				if (isset($updateStatus)) {
 					echo $updateStatus;
+				}
+				if (isset($removeOrder)) {
+					echo $removeOrder;
 				}
 				?>
 			</div>
@@ -51,9 +58,9 @@ if (isset($_GET['shiftid'])) {
 								<td><a href="cmrprofile.php?customerId=<?php echo $result['customerId'] ?>">View Details</a></td>
 								<?php
 								if ($result['status'] == '0') { ?>
-									<td><a class="btn btn-primary" href="?shiftid=<?php echo $result['id'] ?>">Mark As Shifted</a></td>
+									<td><a class="btn btn-primary" href="?shiftid=<?php echo $result['id'] ?>">Mark As Shipped</a></td>
 								<?php } else { ?>
-									<td><a class="" href="?shiftid=<?php echo $result['id'] ?>"><span style="color:red">X</span></a></td>
+									<td><a class="" href="?removeOrder=<?php echo $result['id'] ?>"><span style="color:red">X</span></a></td>
 								<?php } ?>
 
 							</tr>

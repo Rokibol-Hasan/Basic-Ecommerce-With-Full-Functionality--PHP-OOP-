@@ -100,7 +100,6 @@ $customer = new Customer();
             <ul id="dc_mega-menu-orange" class="dc_mm-orange">
 
                 <li><a href="index.php">Home</a></li>
-                <li><a href="products.php">Products</a> </li>
                 <li><a href="topbrands.php">Top Brands</a></li>
 
                 <?php
@@ -120,6 +119,7 @@ $customer = new Customer();
                 if (!empty($order)) { ?>
                     <li><a href="order.php">Track Order</a></li>
                 <?php } ?>
+                <li><a href="compare.php">Compare</a> </li>
                 <li><a href="contact.php"><i class="fa fa-id-badge"> Contact</i></a></li>
                 <div class="clear"></div>
             </ul>

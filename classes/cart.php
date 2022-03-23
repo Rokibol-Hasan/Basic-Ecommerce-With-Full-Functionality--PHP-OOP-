@@ -86,14 +86,16 @@ class Cart
         $getCartData = $this->db->select($query);
         return $getCartData;
     }
-    public function logoutAndClearCart(){
+    public function logoutAndClearCart()
+{
         $sId = session_id();
         $query = "DELETE FROM tbl_cart WHERE sId = '$sId'";
         $clearCart = $this->db->delete($query);
         return $clearCart;
     }
 
-    public function insertOrder($customerId){
+    public function insertOrder($customerId)
+    {
         $sId = session_id();
         $getCartRow = $this->getAllCartRow();
         if ($getCartRow) {
@@ -111,11 +113,11 @@ class Cart
             }
         }
     }
-    public function getOrderedProduct($customerId){
+    public function getOrderedProduct($customerId)
+    {
         $query = "SELECT * FROM tbl_order WHERE customerId = '$customerId' ORDER BY id DESC";
         $getOrderdProduct = $this->db->select($query);
         return $getOrderdProduct;
-
     }
     public function checkOrder($customerId)
     {
@@ -123,19 +125,27 @@ class Cart
         $getCartData = $this->db->select($query);
         return $getCartData;
     }
-    public function deleteOrder($id)
+    public function deleteOrderById($id)
     {
         $query = "DELETE FROM tbl_order WHERE id = '$id'";
         $deleteOrder = $this->db->delete($query);
-        return $deleteOrder;
+        if ($deleteOrder) {
+            $msg = "<span class = 'success mx-3'>Removed Order Successfully!</span>";
+            return $msg;
+        } else {
+            $msg = "<span class = 'error mx-3'>Something Went Wrong</span>";
+            return $msg;
+        }
     }
-    public function getAllOrderdProduct(){
+    public function getAllOrderdProduct()
+    {
         $query = "SELECT * FROM tbl_order ORDER BY DATE DESC";
         $getOrderdData = $this->db->select($query);
         return $getOrderdData;
     }
-    public function updateStatus($id){
-        $orderId = mysqli_real_escape_string($this->db->link,$id);
+    public function updateStatus($id)
+    {
+        $orderId = mysqli_real_escape_string($this->db->link, $id);
         $query = "UPDATE tbl_order
         SET
         status = 1
@@ -145,14 +155,10 @@ class Cart
         if ($updateStatus) {
             $msg = "<span class = 'success mx-3'>Updated Successfully!</span>";
             return $msg;
-        }else {
+        } else {
             $msg = "<span class = 'error mx-3'>Something Went Wrong</span>";
             return $msg;
         }
-        
-
     }
-
-
 
 }

@@ -1,7 +1,7 @@
 <?php
 $filepath = realpath(dirname(__FILE__));
-include_once ($filepath . "/../lib/database.php");
-include_once ($filepath . "/../helpers/format.php");
+include_once($filepath . "/../lib/database.php");
+include_once($filepath . "/../helpers/format.php");
 ?>
 <?php
 
@@ -63,6 +63,11 @@ class Product
         INNER JOIN tbl_brand
         ON tbl_product.brandId = tbl_brand.brandId
         ORDER BY tbl_product.productId DESC";
+        $getAllProduct = $this->db->select($query);
+        return $getAllProduct;
+    }
+    public function getAllRawProduct(){
+        $query = "SELECT * FROM tbl_product";
         $getAllProduct = $this->db->select($query);
         return $getAllProduct;
     }
@@ -212,17 +217,12 @@ class Product
         $getCanonLatest = $this->db->select($query);
         return $getCanonLatest;
     }
-    public function getProductByCategory($catId){
+    public function getProductByCategory($catId)
+    {
         $query = "SELECT * FROM tbl_product WHERE catId = '$catId' ORDER BY productId DESC";
         $getProductByCat = $this->db->select($query);
         return $getProductByCat;
     }
-
-
-
-
-
-
 }
 
 
