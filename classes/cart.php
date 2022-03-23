@@ -86,7 +86,7 @@ class Cart
         $getCartData = $this->db->select($query);
         return $getCartData;
     }
-    public function logoutAndClearCart()
+    public function orderAndClearCart()
 {
         $sId = session_id();
         $query = "DELETE FROM tbl_cart WHERE sId = '$sId'";
@@ -96,20 +96,16 @@ class Cart
 
     public function insertOrder($customerId)
     {
-        $sId = session_id();
-        $getCartRow = $this->getAllCartRow();
-        if ($getCartRow) {
-            while ($result = $getCartRow->fetch_assoc()) {
+        $getCart = $this->getAllCartRow();
+        if ($getCart) {
+            while ($result = $getCart->fetch_assoc()) {
                 $productId = $result['productId'];
                 $productName = $result['productName'];
                 $quantity = $result['quantity'];
                 $price = $result['price'] * $quantity;
                 $image = $result['image'];
-
-
-                $query = "INSERT INTO tbl_order (customerId,productId,productName,quantity,price,image)VALUES('$customerId','$productId','$productName','$quantity','$price','$image')";
+                $query = "INSERT INTO tbl_order(customerId,productId,productName,quantity,price,image)VALUES('$customerId','$productId','$productName','$quantity','$price','$image')";
                 $insertOrder = $this->db->insert($query);
-                return $insertOrder;
             }
         }
     }

@@ -9,8 +9,9 @@ if ($login == false) {
 if (isset($_GET['orderId']) && $_GET['orderId'] == 'order') {
     $customerId = Session::get("customerId");
     $insertOrder = $ct->insertOrder($customerId);
-    $clearCart = $ct->logoutAndClearCart();
+    $clearCart = $ct->orderAndClearCart();
     header("Location:success.php");
+    
 }
 ?>
 <section class="payment card">
