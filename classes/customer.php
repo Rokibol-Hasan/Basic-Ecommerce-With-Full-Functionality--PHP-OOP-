@@ -71,13 +71,6 @@ class Customer
             return $msg;
         }
     }
-    public function getCustomerInfo()
-    {
-        $customerId = Session::get("customerId");
-        $query = "SELECT * FROM tbl_customer WHERE id = '$customerId'";
-        $getCustomerInfo = $this->db->select($query);
-        return $getCustomerInfo;
-    }
     public function updateCustomerById($id, $data)
     {
         $name = mysqli_real_escape_string($this->db->link, $data['name']);
@@ -115,6 +108,13 @@ class Customer
         }
     }
     public function getCustomerById($customerId)
+    {
+        $customerId = Session::get("customerId");
+        $query = "SELECT * FROM tbl_customer WHERE id = '$customerId'";
+        $getCustomerInfo = $this->db->select($query);
+        return $getCustomerInfo;
+    }
+    public function getCustomerInfo()
     {
         $customerId = Session::get("customerId");
         $query = "SELECT * FROM tbl_customer WHERE id = '$customerId'";
