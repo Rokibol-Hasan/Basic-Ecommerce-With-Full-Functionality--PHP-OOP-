@@ -3,7 +3,9 @@
 <?php include "../classes/category.php"; ?>
 <?php include "../classes/brand.php"; ?>
 <?php include "../classes/product.php"; ?>
+<?php include "../classes/supplier.php"; ?>
 <?php
+$supplier = new Supplier();
 $pd = new Product();
 if (isset($_POST['submit'])) {
     $insertProduct = $pd->productInsert($_POST, $_FILES);
@@ -105,7 +107,6 @@ if (isset($_POST['submit'])) {
                             </select>
                         </td>
                     </tr>
-
                     <tr>
                         <td></td>
                         <td>

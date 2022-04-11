@@ -2,6 +2,7 @@
 $filepath = realpath(dirname(__FILE__));
 include_once($filepath . "/../lib/database.php");
 include_once($filepath . "/../helpers/format.php");
+// include_once($filepath . "/../classes/supplier.php");
 ?>
 <?php
 
@@ -223,6 +224,30 @@ class Product
         $getProductByCat = $this->db->select($query);
         return $getProductByCat;
     }
+
+
+    public function insertCompare($customerId,$cmprid){
+        $customerId = mysqli_real_escape_string($this->db->link, $customerId);
+        $productId = mysqli_real_escape_string($this->db->link, $cmprid);
+        $query = "SELECT * FROM tbl_product WHERE productId = $productId";
+        $getProduct = $this->db->select($query)->fetch_assoc();
+        if ($getProduct) {
+            $productName = $getProduct['productName'];
+            $price = $getProduct['price'];
+            $image = $getProduct['image'];
+
+            $query = "INSERT INTO tbl_compare(customerId,productId,productName,price,image)VALUES('$customerId','$productId','$productName','$price','$image')";
+            $insertCompare = $this->db->insert($query);
+            if ($insertCompare) {
+                $msg = "<h6 class='success'>Product added to compare successfully</h6>";
+                return $msg;
+            } else {
+                $msg = "<h6 class='error'>Product Not Added To Compare</h6>";
+                return $msg;
+            }
+        }
+    }
+
 }
 
 

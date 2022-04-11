@@ -1,8 +1,8 @@
 ﻿<?php include 'inc/header.php'; ?>
 <?php include 'inc/sidebar.php'; ?>
-<?php include "../lib/database.php";?>
-<?php include "../classes/product.php";?>
-<?php 
+<?php include "../lib/database.php"; ?>
+<?php include "../classes/product.php"; ?>
+<?php
 
 $db = new Database();
 $pd = new Product();
@@ -23,13 +23,13 @@ $pd = new Product();
               <i class="fa fa-user-o" aria-hidden="true"></i>
             </div>
             <div class="text-section">
-              <?php 
+              <?php
               $query = "SELECT adminId FROM tbl_admin ORDER BY adminId";
               $getAllAdmin = $db->select($query);
               $row = mysqli_num_rows($getAllAdmin);
-              echo '<h1>'.$row.'</h1>';
+              echo '<h1>' . $row . '</h1>';
               ?>
-              <span>+7% email list penetration</span>
+
             </div>
             <div style="clear:both;"></div>
           </div>
@@ -42,18 +42,18 @@ $pd = new Product();
         </div>
         <div class="dashbord download-content">
           <div class="title-section">
-            <p>CLOUD DOWNLOAD</p>
+            <p>All Products</p>
           </div>
           <div class="icon-text-section">
             <div class="icon-section">
               <i class="fa fa-download" aria-hidden="true"></i>
             </div>
             <div class="text-section">
-              <?php 
+              <?php
               $totalProduct = $pd->getAllProduct();
               $allRows = mysqli_num_rows($totalProduct);
 
-              
+
               ?>
               <h1><?php echo $allRows ?> Piece</h1>
               <span>12% have started download</span>
@@ -69,15 +69,11 @@ $pd = new Product();
         </div>
         <div class="dashbord product-content">
           <div class="title-section">
-            <p>SALES FROM YOUR CREDIT-CARD</p>
+            <p> Total Sales </p>
           </div>
           <div class="icon-text-section">
             <div class="icon-section">
               <i class="fa fa-credit-card" aria-hidden="true"></i>
-            </div>
-            <div class="text-section">
-              <h1>360 <small>$</small></h1>
-              <span>$ 272 credit in your account</span>
             </div>
             <div style="clear:both;"></div>
           </div>

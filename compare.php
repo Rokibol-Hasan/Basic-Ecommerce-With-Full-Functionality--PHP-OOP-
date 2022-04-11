@@ -1,4 +1,11 @@
 <?php include "inc/header.php"; ?>
+<?php
+
+if(isset($_GET['cmprid'])){
+    $cmprid = $_GET['cmprid'];
+}
+
+?>
 <div class="main">
     <div class="content">
         <div class="cartoption">
@@ -11,7 +18,7 @@
                         <th>Image</th>
                         <th>Action</th>
                     </tr>
-
+                        
                     <tr>
                         <td><?php echo $compared['productName'] ?></td>
                         <td><?php echo $compared['price'] ?>$</td>

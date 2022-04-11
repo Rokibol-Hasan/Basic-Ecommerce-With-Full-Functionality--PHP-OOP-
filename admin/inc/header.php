@@ -88,6 +88,8 @@ Session::checkSession();
                 <li class="ic-form-style"><a href="profile.php"><span>User Profile</span></a></li>
                 <li class="ic-typography"><a href="changepassword.php"><span>Change Password</span></a></li>
                 <li class="ic-grid-tables"><a href="allorder.php"><span>Orders</span></a></li>
+                <li class="ic-grid-tables"><a href="allsupplier.php"><span>Supplier List</span></a></li>
+                <li class="ic-grid-tables"><a href="uomlist.php"><span>UOM</span></a></li>
                 <li class="ic-charts"><a href=""><span>Visit Website</span></a></li>
             </ul>
         </div>
