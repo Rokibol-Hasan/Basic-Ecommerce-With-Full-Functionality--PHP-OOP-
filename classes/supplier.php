@@ -19,24 +19,32 @@ class Supplier
         $address = mysqli_real_escape_string($this->db->link, $data['address']);
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
         $mail = $data['mail'];
-        $mail = (filter_var($mail, FILTER_VALIDATE_EMAIL));
-        $getSupplier = $this->getAllSupplier();
-        $row = mysqli_fetch_array($getSupplier);
-        $insertedName = $row['supplierName'];
-        $insertedMail = $row['mail'];
-        if ($supplierName == $insertedName || $mail == $insertedMail) {
-            $msg = "<h6 class='error'>Vendor Already Added</h6>";
+        if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+            $msg = "<h6 class='error'>Invalid Mail</h6>";
             return $msg;
-        } elseif (empty($supplierName)) {
+        }
+        if ($supplierName == '' || $address == '' || $phone == '' || $mail == '') {
+            $msg = "<h6 class='error'>Field Must Not Be Empty</h6>";
+            return $msg;
         } else {
-            $query = "INSERT INTO tbl_supplier(supplierName,address,phone,mail)VALUES ('$supplierName','$address','$phone','$mail')";
-            $insertSupplier = $this->db->insert($query);
-            if ($insertSupplier) {
-                $msg = "<h6 class='success'>Supplier Inserted Successfully</h6>";
+            $getSupplier = $this->getAllSupplier();
+            $row = mysqli_fetch_array($getSupplier);
+            $insertedName = $row['supplierName'];
+            $insertedMail = $row['mail'];
+            if ($supplierName == $insertedName || $mail == $insertedMail) {
+                $msg = "<h6 class='error'>Vendor Already Added</h6>";
                 return $msg;
+            } elseif (empty($supplierName)) {
             } else {
-                $msg = "<h6 class='error'>Supplier Not Inserted!!</h6>";
-                return $msg;
+                $query = "INSERT INTO tbl_supplier(supplierName,address,phone,mail)VALUES ('$supplierName','$address','$phone','$mail')";
+                $insertSupplier = $this->db->insert($query);
+                if ($insertSupplier) {
+                    $msg = "<h6 class='success'>Supplier Inserted Successfully</h6>";
+                    return $msg;
+                } else {
+                    $msg = "<h6 class='error'>Supplier Not Inserted!!</h6>";
+                    return $msg;
+                }
             }
         }
     }
