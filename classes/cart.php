@@ -87,7 +87,14 @@ class Cart
         return $getCartData;
     }
     public function orderAndClearCart()
-{
+    {
+        $sId = session_id();
+        $query = "DELETE FROM tbl_cart WHERE sId = '$sId'";
+        $clearCart = $this->db->delete($query);
+        return $clearCart;
+    }
+    public function logoutAndClearCart()
+    {
         $sId = session_id();
         $query = "DELETE FROM tbl_cart WHERE sId = '$sId'";
         $clearCart = $this->db->delete($query);
@@ -156,5 +163,4 @@ class Cart
             return $msg;
         }
     }
-
 }

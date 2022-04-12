@@ -4,6 +4,7 @@ $login = Session::get("grandTotal");
 if ($login == false) {
     header("Location:login.php");
 }
+
 ?>
 <div class="main">
     <div class="content">

@@ -90,6 +90,7 @@ Session::checkSession();
                 <li class="ic-grid-tables"><a href="allorder.php"><span>Orders</span></a></li>
                 <li class="ic-grid-tables"><a href="allsupplier.php"><span>Supplier List</span></a></li>
                 <li class="ic-grid-tables"><a href="uomlist.php"><span>UOM</span></a></li>
+                <li class="ic-grid-tables"><a href="stocklist.php"><span>Stock</span></a></li>
                 <li class="ic-charts"><a href=""><span>Visit Website</span></a></li>
             </ul>
         </div>
