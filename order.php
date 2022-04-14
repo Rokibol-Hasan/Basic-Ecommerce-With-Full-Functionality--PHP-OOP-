@@ -14,12 +14,12 @@ if (isset($_GET['deleteOrder'])) {
 <div class="main">
     <div class="content">
         <div class="section group order-table">
-            <?php 
+            <?php
             if (isset($deleteOrder)) {
                 echo $deleteOrder;
             }
-            
-            
+
+
             ?>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -31,6 +31,7 @@ if (isset($_GET['deleteOrder'])) {
                         <th>Total Price</th>
                         <th>Date</th>
                         <th>Status</th>
+                        <th>Get Invoice</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -59,15 +60,17 @@ if (isset($_GET['deleteOrder'])) {
                                     }
                                     ?>
                                 </td>
+                                <td><a href="pdf.php?oid=<?php echo $order['id'] ?> " class="btn btn-primary">invoice</a></td>
                                 <td>
                                     <?php
                                     if ($order['status'] == '1') { ?>
-                                        <a href="?deleteOrder=<?php echo $order['id']?> " class="btn btn-danger">Remove</a>
-                                    <?php }else {
+                                        <a href="?deleteOrder=<?php echo $order['id'] ?> " class="btn btn-danger">Remove</a>
+                                    <?php } else {
                                         echo "No Actions";
                                     }
                                     ?>
                                 </td>
+
                             </tr>
                 </tbody>
         <?php }

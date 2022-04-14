@@ -106,6 +106,27 @@ class Supplier
             return $msg;
         }
     }
+    public function uomIdSuggestion($search)
+    {
+        $query = "SELECT * FROM tbl_uom WHERE shortCode LIKE '%$search%'";
+        $getSugg = $this->db->select($query);
+        if ($getSugg) {
+            $data = '';
+            while ($row = $getSugg->fetch_assoc()) {
+                $data .= '
+                <table>
+                    <tbody>
+                        <td>
+                            <h1>' . $row['shortCode'] . '</h1>
+                        </td>
+                    </tbody 
+                </table>';
+            }
+            echo $data;
+        }else {
+            echo "Data Not Found";
+        }
+    }
 }
 
 

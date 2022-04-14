@@ -163,4 +163,9 @@ class Cart
             return $msg;
         }
     }
+    public function getOrderById($id){
+        $query = "SELECT * FROM tbl_order WHERE id = $id";
+        $getOrder = $this->db->select($query);
+        return $getOrder;
+    }
 }
