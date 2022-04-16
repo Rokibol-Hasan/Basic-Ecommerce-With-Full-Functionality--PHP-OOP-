@@ -49,8 +49,7 @@ if (isset($_POST['submit'])) {
                                         if ($getAllCat) {
                                             while ($result = $getAllCat->fetch_assoc()) { ?>
                                                 <option <?php
-                                                        if ($value['catId'] == $result['catId']) { ?> selected="selected" <?php }
-                                                                                                                            ?> value="<?php echo $result['catId'] ?>"><?php echo $result['catName'] ?></option>
+                                                    if ($value['catId'] == $result['catId']) { ?> selected="selected" <?php }?> value="<?php echo $result['catId'] ?>"><?php echo $result['catName'] ?></option>
                                         <?php  }
                                         } ?>
                                     </select>

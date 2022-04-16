@@ -1,10 +1,23 @@
 <?php include 'inc/header.php'; ?>
 <?php include 'inc/sidebar.php'; ?>
 <?php include "../classes/supplier.php"; ?>
+<?php include "../classes/product.php"; ?>
+<?php
+$pd = new Product();
+$supplier = new Supplier();
+if (isset($_POST['submit'])) {
+    $insertStock = $supplier->insertStock($_POST);
+}
+?>
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Add new stock</h2>
         <div class="block">
+            <?php
+            if (isset($insertStock)) {
+                echo $insertStock;
+            }
+            ?>
             <a href="stocklist.php" class="btn btn-info">Stock List</a>
             <form action="" method="POST">
 
@@ -14,7 +27,17 @@
                             <label>UOM ID/shortCode</label>
                         </td>
                         <td>
-                            <input type="text" id="shortCode" name="shortCode" class="medium" placeholder="Enter uom id here..">
+                            <select name="uomId">
+                                <option>Select ShortCode</option>
+                                <?php
+                                $getShortCode = $supplier->getAllUom();
+                                if ($getShortCode) {
+                                    while ($result = $getShortCode->fetch_assoc()) { ?>
+                                        <option value="<?php echo $result['uomId'] ?>"> <?php echo $result['shortCode'] ?> </option>
+                                <?php }
+                                } ?>
+
+                            </select>
                             <div id="live"> </div>
                         </td>
                     </tr>
@@ -23,7 +46,33 @@
                             <label>Supplier ID</label>
                         </td>
                         <td>
-                            <input type="text" name="supplierId" class="medium" placeholder="Enter uom id here..">
+                            <select name="supplierId">
+                                <option>Select Supplier</option>
+                                <?php
+                                $getSupplier = $supplier->getAllSupplier();
+                                if ($getSupplier) {
+                                    while ($row = $getSupplier->fetch_assoc()) { ?>
+                                        <option value="<?php echo $row['supplierId'] ?>"> <?php echo $row['supplierName'] ?> </option>
+                                <?php }
+                                } ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Relative Factor</label>
+                        </td>
+                        <td>
+                            <select name="rf" id="rf">
+                                <option>Select Factor</option>
+                                <?php
+                                $getRelativeFactor = $supplier->getAllUom();
+                                if ($getRelativeFactor) {
+                                    while ($uom = $getRelativeFactor->fetch_assoc()) { ?>
+                                        <option value="<?php echo $uom['rf'] ?>"><?php echo $uom['rf'] ?> </option>
+                                <?php }
+                                } ?>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -67,6 +116,23 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            <label>Product Name</label>
+                        </td>
+                        <td>
+                            <select name="productId" id="rf">
+                                <option>Select Product</option>
+                                <?php
+                                $getPro = $pd->getAllProduct();
+                                if ($getPro) {
+                                    while ($pro = $getPro->fetch_assoc()) { ?>
+                                        <option value="<?php echo $pro['productId'] ?>"><?php echo $pro['productName'] ?> </option>
+                                <?php }
+                                } ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <td></td>
                         <td>
                             <input type="submit" name="submit" Value="Save" />
@@ -79,11 +145,11 @@
 </div>
 <!-- Live Search -->
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         $("#shortCode").keyup(function() {
             var live = $(this).val();
-            if (live != '') {
+            if (live != "") {
                 $.ajax({
                     url: "livesearch.php",
                     method: "POST",
@@ -96,11 +162,11 @@
                     }
                 });
             } else {
-                $('#live').html("");
+                $('#live').html("No Data");
             }
         });
     });
-</script>
+</script> -->
 <!-- Form Calculation Script -->
 <script>
     $(document).ready(function() {
@@ -108,12 +174,18 @@
             var qty = $(".qty").val();
             var cqty = $("#cqty").val();
             var sp = $("#sp").val();
-            if ($(".qty").val() <= 3) {
-                $("#cqty").val(qty * 12);
+            var rf = $("#rf").val();
+
+            $("#cqty").val(qty * rf);
+
+            if (!sp || sp == 'supplier price') {
+                $("#cp").val(0);
             } else {
-                $("#cqty").val(qty * 50);
+                $("#cp").val(sp / cqty);
             }
-            $("#cp").val(sp / cqty);
+
+
+
         });
     })
 </script>

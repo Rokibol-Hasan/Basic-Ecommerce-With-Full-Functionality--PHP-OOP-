@@ -123,10 +123,106 @@ class Supplier
                 </table>';
             }
             echo $data;
-        }else {
+        } else {
             echo "Data Not Found";
         }
     }
+
+    public function insertStock($data)
+    {
+        $uomId = mysqli_real_escape_string($this->db->link, $data['uomId']);
+        $supplierId = mysqli_real_escape_string($this->db->link, $data['supplierId']);
+        $rf = mysqli_real_escape_string($this->db->link, $data['rf']);
+        $suppQty = mysqli_real_escape_string($this->db->link, $data['suppQty']);
+        $convertedQty = mysqli_real_escape_string($this->db->link, $data['convertedQty']);
+        $suppPrice = mysqli_real_escape_string($this->db->link, $data['suppPrice']);
+        $convertedPrice = mysqli_real_escape_string($this->db->link, $data['convertedPrice']);
+        $sellPrice = mysqli_real_escape_string($this->db->link, $data['sellPrice']);
+        $productId = mysqli_real_escape_string($this->db->link, $data['productId']);
+        if ($uomId == '' || $supplierId == '' || $suppQty == '' || $convertedQty == '' || $suppPrice == '' || $convertedPrice == '' || $sellPrice == '' || $rf == ''||$productId=='') {
+            $msg = "<h6 class='error'>Field must not be empty</h6>";
+            return $msg;
+        } else {
+            $query = "INSERT INTO tbl_stock(uomId,supplierId,rf,suppQty,convertedQty,suppPrice,convertedPrice,sellPrice,productId)VALUES('$uomId','$supplierId','$rf','$suppQty','$convertedQty','$suppPrice','$convertedPrice','$sellPrice','$productId')";
+            $insertStock = $this->db->insert($query);
+            if ($insertStock) {
+                $msg = "<h6 class='success'>Stock Inserted</h6>";
+                return $msg;
+            } else {
+                $msg = "<h6 class='error'>Stock not Inserted</h6>";
+                return $msg;
+            }
+        }
+    }
+
+    public function selectAllStock()
+    {
+        $query = "SELECT tbl_stock.*,tbl_uom.shortCode,tbl_supplier.supplierName,tbl_product.productName
+        FROM tbl_stock
+        INNER JOIN tbl_uom
+        ON tbl_stock.uomId = tbl_uom.uomId
+        INNER JOIN tbl_supplier
+        ON tbl_stock.supplierId = tbl_supplier.supplierId
+        INNER JOIN tbl_product
+        ON tbl_stock.productId = tbl_product.productId
+        ORDER BY tbl_stock.stockId DESC";
+        $getAllStock = $this->db->select($query);
+        return $getAllStock;
+    }
+    public function deleteStockById($deleteStock)
+    {
+        $query = "DELETE FROM tbl_stock WHERE stockId = '$deleteStock'";
+        $deleteStock = $this->db->delete($query);
+        return $deleteStock;
+    }
+
+    public function updateStockById($editStockId, $data)
+    {
+        $uomId = mysqli_real_escape_string($this->db->link, $data['uomId']);
+        $supplierId = mysqli_real_escape_string($this->db->link, $data['supplierId']);
+        $rf = mysqli_real_escape_string($this->db->link, $data['rf']);
+        $suppQty = mysqli_real_escape_string($this->db->link, $data['suppQty']);
+        $convertedQty = mysqli_real_escape_string($this->db->link, $data['convertedQty']);
+        $suppPrice = mysqli_real_escape_string($this->db->link, $data['suppPrice']);
+        $convertedPrice = mysqli_real_escape_string($this->db->link, $data['convertedPrice']);
+        $sellPrice = mysqli_real_escape_string($this->db->link, $data['sellPrice']);
+        $productId = mysqli_real_escape_string($this->db->link, $data['productId']);
+        if ($uomId == '' || $supplierId == '' || $suppQty == '' || $convertedQty == '' || $suppPrice == '' || $convertedPrice == '' || $sellPrice == '' || $rf == ''||$productId=='') {
+            $msg = "<h6 class='error'>Field must not be empty</h6>";
+            return $msg;
+        } else {
+            $query = "UPDATE
+            tbl_stock SET
+            uomId = '$uomId',
+            supplierId = '$supplierId',
+            rf = '$rf',
+            suppQty = '$suppQty',
+            convertedQty = '$convertedQty',
+            suppPrice = '$suppPrice',
+            convertedPrice = '$convertedPrice',
+            sellPrice = '$sellPrice',
+            productId = '$productId'
+            WHERE stockId = '$editStockId'
+            ";
+            $updateStock = $this->db->update($query);
+            if ($updateStock) {
+                $msg = "<h6 class='success'>Stock Updated</h6>";
+                return $msg;
+            } else {
+                $msg = "<h6 class='error'>Stock Not Updated</h6>";
+                return $msg;
+            }
+        }
+    }
+
+    public function getStockById($getStockId)
+    {
+        $query = "SELECT * FROM tbl_stock WHERE stockId = '$getStockId' LIMIT 1";
+        $getStockById = $this->db->select($query);
+        return $getStockById;
+    }
+
+
 }
 
 
