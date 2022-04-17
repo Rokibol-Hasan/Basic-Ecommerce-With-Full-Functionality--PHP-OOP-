@@ -44,7 +44,7 @@ if (isset($_GET['delsup'])) {
                                 <td><?php echo $result['address'] ?></td>
                                 <td><?php echo $result['phone'] ?></td>
                                 <td><?php echo $result['mail'] ?></td>
-                                <td><a onclick="return confirm('আসলেই উধাও করবেন?')" href="?delsup=<?php echo $result['supplierId'] ?>">Delete</a></td>
+                                <td><a href="supplieredit.php?editSup=<?php echo $result['supplierId'] ?>">Edit</a> || <a onclick="return confirm('আসলেই উধাও করবেন?')" href="?delsup=<?php echo $result['supplierId'] ?>">Delete</a></td>
                             </tr>
                     <?php }
                     }

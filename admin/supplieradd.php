@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Add New Supplier</h2>
-        <a href="allsupplier.php" class="btn btn-info mt-2">Supplier List</a>
+        <a href="supplierlist.php" class="btn btn-info mt-2">Supplier List</a>
         <div class="block copyblock">
             <?php
             if (isset($insertSupplier)) {

@@ -189,12 +189,12 @@ if (isset($_POST['submit'])) {
             var sp = $("#sp").val();
             var rf = $("#rf").val();
             $("#cqty").val(qty * rf);
+            $("#cp").val(sp / cqty);
+            // if (!sp || sp == 'supplier price') {
+            //     $("#cp").val(0);
+            // } else {
 
-            if (!sp || sp == 'supplier price') {
-                $("#cp").val(0);
-            } else {
-                $("#cp").val(sp / cqty);
-            }
+            // }
         });
     })
 </script>

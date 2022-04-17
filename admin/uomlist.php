@@ -38,12 +38,12 @@ if (isset($_GET['deluom'])) {
                     if ($getAllSupplier) {
                         while ($result = $getAllSupplier->fetch_assoc()) { ?>
                             <tr class="odd gradeX">
-                                <td><?php echo $x++; ?></td>
+                                <td><?php echo $x++; ?></td> 
                                 <td><?php echo $result['shortCode'] ?></td>
                                 <td><?php echo $result['description'] ?></td>
                                 <td><?php echo $result['rf'] ?></td>
-                                <td><a onclick="return confirm('আসলেই উধাও করবেন?')" href="?deluom=<?php echo $result['uomId'] ?>">Delete</a></td>
-                        <?php }
+                                <td><a href="uomedit.php?editUom=<?php echo $result['uomId'] ?>">Edit</a> || <a onclick="return confirm('আসলেই উধাও করবেন?')" href="?deluom=<?php echo $result['uomId'] ?>">Delete</a></td>
+                        <?php } 
                     } ?>
                             </tr>
                 </tbody>

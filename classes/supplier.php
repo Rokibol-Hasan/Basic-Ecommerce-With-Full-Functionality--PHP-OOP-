@@ -34,7 +34,6 @@ class Supplier
             if ($supplierName == $insertedName || $mail == $insertedMail) {
                 $msg = "<h6 class='error'>Vendor Already Added</h6>";
                 return $msg;
-            } elseif (empty($supplierName)) {
             } else {
                 $query = "INSERT INTO tbl_supplier(supplierName,address,phone,mail)VALUES ('$supplierName','$address','$phone','$mail')";
                 $insertSupplier = $this->db->insert($query);
@@ -53,6 +52,44 @@ class Supplier
         $query = "SELECT * FROM tbl_supplier ORDER BY supplierId DESC";
         $getSupplier = $this->db->select($query);
         return $getSupplier;
+    }
+    public function getSupplierById($id)
+    {
+        $query = "SELECT * FROM tbl_supplier WHERE supplierId = '$id'";
+        $getSupplierById = $this->db->select($query);
+        return $getSupplierById;
+    }
+
+    public function updateSupplier($id, $data)
+    {
+        $supplierName = mysqli_real_escape_string($this->db->link, $data['supplierName']);
+        $address = mysqli_real_escape_string($this->db->link, $data['address']);
+        $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
+        $mail = $data['mail'];
+        if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+            $msg = "<h6 class='error'>Invalid Mail</h6>";
+            return $msg;
+        }
+        if ($supplierName == '' || $address == '' || $phone == '' || $mail == '') {
+            $msg = "<h6 class='error'>Field Must Not Be Empty</h6>";
+            return $msg;
+        } else {
+            $query = "UPDATE tbl_supplier SET
+            supplierName = '$supplierName',
+            address = '$address',
+            phone = '$phone',
+            mail = '$mail'
+            WHERE supplierId = '$id'
+            ";
+            $updateSupplier = $this->db->update($query);
+            if ($updateSupplier) {
+                $msg = "<h6 class='success'>Supplier Updated Successfully</h6>";
+                return $msg;
+            } else {
+                $msg = "<h6 class='error'>Supplier Not Updated!!</h6>";
+                return $msg;
+            }
+        }
     }
 
     public function deleteSupplierById($id)
@@ -106,6 +143,37 @@ class Supplier
             return $msg;
         }
     }
+    public function getUomById($id)
+    {
+        $query = "SELECT * FROM tbl_uom WHERE uomId = '$id'";
+        $getUomById = $this->db->select($query);
+        return $getUomById;
+    }
+
+    public function updateUom($id, $data)
+    {
+        $shortCode = mysqli_real_escape_string($this->db->link, $data['shortCode']);
+        $description = mysqli_real_escape_string($this->db->link, $data['description']);
+        $relativeFactor = mysqli_real_escape_string($this->db->link, $data['rf']);
+        if ($shortCode == '' || $description == '' || $relativeFactor == '') {
+            $msg = "<h6 class='error'>Field Must Not Be Empty!!</h6>";
+            return $msg;
+        } else {
+            $query = "UPDATE tbl_uom SET
+            shortCode = '$shortCode',
+            description = '$description',
+            rf = '$relativeFactor'
+            WHERE uomId = '$id'";
+            $updateUom = $this->db->update($query);
+            if ($updateUom) {
+                $msg = "<h6 class='success'>UOM updated successfully</h6>";
+                return $msg;
+            } else {
+                $msg = "<h6 class='error'>UOM Not updated!!</h6>";
+                return $msg;
+            }
+        }
+    }
     public function uomIdSuggestion($search)
     {
         $query = "SELECT * FROM tbl_uom WHERE shortCode LIKE '%$search%'";
@@ -139,7 +207,7 @@ class Supplier
         $convertedPrice = mysqli_real_escape_string($this->db->link, $data['convertedPrice']);
         $sellPrice = mysqli_real_escape_string($this->db->link, $data['sellPrice']);
         $productId = mysqli_real_escape_string($this->db->link, $data['productId']);
-        if ($uomId == '' || $supplierId == '' || $suppQty == '' || $convertedQty == '' || $suppPrice == '' || $convertedPrice == '' || $sellPrice == '' || $rf == ''||$productId=='') {
+        if ($uomId == '' || $supplierId == '' || $suppQty == '' || $convertedQty == '' || $suppPrice == '' || $convertedPrice == '' || $sellPrice == '' || $rf == '' || $productId == '') {
             $msg = "<h6 class='error'>Field must not be empty</h6>";
             return $msg;
         } else {
@@ -169,7 +237,7 @@ class Supplier
         $getAllStock = $this->db->select($query);
         return $getAllStock;
     }
-    public function deleteStockById($deleteStock)
+    public function deleteStockById($deleteStock) 
     {
         $query = "DELETE FROM tbl_stock WHERE stockId = '$deleteStock'";
         $deleteStock = $this->db->delete($query);
@@ -187,7 +255,7 @@ class Supplier
         $convertedPrice = mysqli_real_escape_string($this->db->link, $data['convertedPrice']);
         $sellPrice = mysqli_real_escape_string($this->db->link, $data['sellPrice']);
         $productId = mysqli_real_escape_string($this->db->link, $data['productId']);
-        if ($uomId == '' || $supplierId == '' || $suppQty == '' || $convertedQty == '' || $suppPrice == '' || $convertedPrice == '' || $sellPrice == '' || $rf == ''||$productId=='') {
+        if ($uomId == '' || $supplierId == '' || $suppQty == '' || $convertedQty == '' || $suppPrice == '' || $convertedPrice == '' || $sellPrice == '' || $rf == '' || $productId == '') {
             $msg = "<h6 class='error'>Field must not be empty</h6>";
             return $msg;
         } else {
@@ -221,8 +289,6 @@ class Supplier
         $getStockById = $this->db->select($query);
         return $getStockById;
     }
-
-
 }
 
 
