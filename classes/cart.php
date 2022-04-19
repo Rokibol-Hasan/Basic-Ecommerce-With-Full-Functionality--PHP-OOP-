@@ -2,6 +2,7 @@
 $filepath = realpath(dirname(__FILE__));
 include_once($filepath . "/../lib/database.php");
 include_once($filepath . "/../helpers/format.php");
+include_once($filepath . "/../classes/supplier.php");
 ?>
 <?php
 
@@ -14,6 +15,7 @@ class Cart
     {
         $this->db = new Database();
         $this->fm = new Format();
+        $this->sup = new Supplier();
     }
 
     public function addToCart($quantity, $id)
@@ -163,9 +165,36 @@ class Cart
             return $msg;
         }
     }
-    public function getOrderById($id){
+    public function getOrderById($id)
+    {
         $query = "SELECT * FROM tbl_order WHERE id = $id";
         $getOrder = $this->db->select($query);
         return $getOrder;
+    }
+
+
+
+    public function orderAndStock($productId)
+    {
+        $getStock = "SELECT * FROM tbl_stock";
+        $getStock = $this->db->select($getStock);
+        $getStock = $getStock->fetch_assoc();
+        $stockProId = $getStock['productId'];
+        $convertedQty = $getStock['convertedQty'];
+        if ($productId == $stockProId) {
+            $getQty = $this->getOrderById($productId);
+            $getQty = $getQty->fetch_assoc();
+            $quantity = $getQty['quantity'];
+
+            if ($quantity) {
+                $stockUpdate = $convertedQty - $quantity;
+                $updateQuery = " UPDATE tbl_stock SET
+                convertedQty = '$stockUpdate'
+                WHERE productId = '$productId'
+                ";
+                $updateStock = $this->db->update($updateQuery);
+                return $updateStock;
+            }
+        }
     }
 }
