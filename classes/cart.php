@@ -176,24 +176,24 @@ class Cart
 
     public function orderAndStock($productId)
     {
-        $getStock = "SELECT * FROM tbl_stock";
+        $getStock = "SELECT * FROM tbl_stock WHERE productId = '$productId'";
         $getStock = $this->db->select($getStock);
         $getStock = $getStock->fetch_assoc();
         $stockProId = $getStock['productId'];
         $convertedQty = $getStock['convertedQty'];
         if ($productId == $stockProId) {
             $getQty = $this->getOrderById($productId);
-            $getQty = $getQty->fetch_assoc();
-            $quantity = $getQty['quantity'];
-
-            if ($quantity) {
-                $stockUpdate = $convertedQty - $quantity;
-                $updateQuery = " UPDATE tbl_stock SET
+            while ($row = $getQty->mysqli_fetch_array($getQty)) {
+                $quantity = $row['quantity'];
+                if ($quantity) {
+                    $stockUpdate = $getStock['convertedQty'] - $getQty['quantity'];
+                    $updateQuery = "UPDATE tbl_stock SET
                 convertedQty = '$stockUpdate'
                 WHERE productId = '$stockProId'
                 ";
-                $updateStock = $this->db->update($updateQuery);
-                return $updateStock;
+                    $updateStock = $this->db->update($updateQuery);
+                    return $updateStock;
+                }
             }
         }
     }
