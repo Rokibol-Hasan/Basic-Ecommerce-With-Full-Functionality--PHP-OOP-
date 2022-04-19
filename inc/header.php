@@ -15,6 +15,7 @@ $ct = new Cart();
 $cat = new Category();
 $brand = new brand();
 $customer = new Customer();
+
 ?>
 <!DOCTYPE HTML>
 
@@ -120,7 +121,7 @@ $customer = new Customer();
                     <li><a href="order.php">Track Order</a></li>
                 <?php } ?>
                 <li><a href="compare.php">Compare</a> </li>
-                <li><a href="contact.php"><i class="fa fa-id-badge"> Contact</i></a></li>
+                <li><a href="contact.php"><i class="fa fa-id-badge"> Contact </i></a></li>
                 <div class="clear"></div>
             </ul>
         </div>

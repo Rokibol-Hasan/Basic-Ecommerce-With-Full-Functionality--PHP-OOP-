@@ -190,7 +190,7 @@ class Cart
                 $stockUpdate = $convertedQty - $quantity;
                 $updateQuery = " UPDATE tbl_stock SET
                 convertedQty = '$stockUpdate'
-                WHERE productId = '$productId'
+                WHERE productId = '$stockProId'
                 ";
                 $updateStock = $this->db->update($updateQuery);
                 return $updateStock;

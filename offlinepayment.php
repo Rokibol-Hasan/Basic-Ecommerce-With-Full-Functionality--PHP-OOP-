@@ -6,12 +6,12 @@ if ($login == false) {
 }
 ?>
 <?php
+
 if (isset($_GET['orderId']) && $_GET['orderId'] == 'order') {
     $customerId = Session::get("customerId");
     $insertOrder = $ct->insertOrder($customerId);
     $clearCart = $ct->orderAndClearCart();
     header("Location:success.php");
-    
 }
 ?>
 <section class="payment card">
@@ -72,7 +72,7 @@ if (isset($_GET['orderId']) && $_GET['orderId'] == 'order') {
                             <td><?php
                                 $vat = $sum * 0.05;
                                 $grandTotal = $sum + $vat;
-                                Session::set("grandTotal",$grandTotal);
+                                Session::set("grandTotal", $grandTotal);
                                 echo "$grandTotal" . "$";
                                 ?></td>
                         </tr>

@@ -9,6 +9,7 @@ if (isset($_GET['deleteOrder'])) {
     $id = $_GET['deleteOrder'];
     $deleteOrder = $ct->deleteOrderById($id);
 }
+
 ?>
 
 <div class="main">

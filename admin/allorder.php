@@ -9,6 +9,13 @@ $fm = new Format();
 <?php
 if (isset($_GET['shiftid'])) {
 	$orderId = $_GET['shiftid'];
+	$getOrder = $ct->getAllOrderdProduct();
+	if ($getOrder) {
+		while ($row = $getOrder->fetch_assoc()) {
+			$productId = $row['productId'];
+			$stockChange = $ct->orderAndStock($productId);
+		}
+	}
 	$updateStatus = $ct->updateStatus($orderId);
 }
 if (isset($_GET['removeOrder'])) {
@@ -18,7 +25,7 @@ if (isset($_GET['removeOrder'])) {
 ?>
 <div class="grid_10">
 	<div class="box round first grid">
-		<h2>Inbox</h2>
+		<h2> Inbox</h2>
 		<div class="block">
 			<div class="mb-3">
 				<?php
