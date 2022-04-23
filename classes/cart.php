@@ -151,13 +151,30 @@ class Cart
     public function updateStatus($id)
     {
         $orderId = mysqli_real_escape_string($this->db->link, $id);
+
+        $getorder = "SELECT * FROM tbl_order WHERE id = '$id'";
+        $getorder = $this->db->select($getorder)->fetch_assoc();
+        $productId = $getorder['productId'];
+        $quantity = $getorder['quantity'];
+        
+        $getstock = "SELECT * FROM tbl_stock WHERE productId = '$productId'";
+        $getstock = $this->db->select($getstock);
+        $getstock = mysqli_fetch_array($getstock);
+        $convertedQty = $getstock['convertedQty'];
+
+        $updatedQty = $convertedQty-$quantity; 
+
+        $updatequery = "UPDATE tbl_stock SET 
+        convertedQty = '$updatedQty'
+        WHERE productId = '$productId'";
+        $updateStock = $this->db->update($updatequery);
         $query = "UPDATE tbl_order
         SET
         status = 1
         WHERE id = '$orderId'
         ";
         $updateStatus = $this->db->update($query);
-        if ($updateStatus) {
+        if ($updateStatus && $updateStock) {
             $msg = "<span class = 'success mx-3'>Updated Successfully!</span>";
             return $msg;
         } else {
@@ -174,27 +191,27 @@ class Cart
 
 
 
-    public function orderAndStock($productId)
-    {
-        $getStock = "SELECT * FROM tbl_stock WHERE productId = '$productId'";
-        $getStock = $this->db->select($getStock);
-        $getStock = $getStock->fetch_assoc();
-        $stockProId = $getStock['productId'];
-        $convertedQty = $getStock['convertedQty'];
-        if ($productId == $stockProId) {
-            $getQty = $this->getOrderById($productId);
-            while ($row = $getQty->mysqli_fetch_array($getQty)) {
-                $quantity = $row['quantity'];
-                if ($quantity) {
-                    $stockUpdate = $getStock['convertedQty'] - $getQty['quantity'];
-                    $updateQuery = "UPDATE tbl_stock SET
-                convertedQty = '$stockUpdate'
-                WHERE productId = '$stockProId'
-                ";
-                    $updateStock = $this->db->update($updateQuery);
-                    return $updateStock;
-                }
-            }
-        }
-    }
+    // public function orderAndStock($productId)
+    // {
+    //     $getStock = "SELECT * FROM tbl_stock WHERE productId = '$productId'";
+    //     $getStock = $this->db->select($getStock);
+    //     $getStock = $getStock->fetch_assoc();
+    //     $stockProId = $getStock['productId'];
+    //     $convertedQty = $getStock['convertedQty'];
+    //     if ($productId == $stockProId) {
+    //         $getQty = $this->getOrderById($productId);
+    //         while ($row = $getQty->mysqli_fetch_array($getQty)) {
+    //             $quantity = $row['quantity'];
+    //             if ($quantity) {
+    //                 $stockUpdate = $getStock['convertedQty'] - $getQty['quantity'];
+    //                 $updateQuery = "UPDATE tbl_stock SET
+    //             convertedQty = '$stockUpdate'
+    //             WHERE productId = '$stockProId'
+    //             ";
+    //                 $updateStock = $this->db->update($updateQuery);
+    //                 return $updateStock;
+    //             }
+    //         }
+    //     }
+    // }
 }

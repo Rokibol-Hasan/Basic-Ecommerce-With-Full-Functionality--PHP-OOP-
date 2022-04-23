@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
                                     <label>Relative Factor</label>
                                 </td>
                                 <td>
-                                    <select name="rf">
+                                    <select name="rf" onchange="calculation()" id="rf">
                                         <option>Select Relative Factor</option>
                                         <?php
                                         $getUom = $supplier->getAllUom();
@@ -89,7 +89,7 @@ if (isset($_POST['submit'])) {
                                     <label>Supplier Quantity</label>
                                 </td>
                                 <td>
-                                    <input type="text" name="suppQty" class="input qty medium" value="<?php echo $getStock['suppQty'] ?>">
+                                    <input type="text" onkeyup="calculation()" name="suppQty" id="sup_qty" class="input qty medium" value="<?php echo $getStock['suppQty'] ?>">
                                 </td>
                             </tr>
                             <tr>
@@ -105,7 +105,7 @@ if (isset($_POST['submit'])) {
                                     <label>Supplier Price</label>
                                 </td>
                                 <td>
-                                    <input id="sp" type="text" name="suppPrice" class="sp medium" value="<?php echo $getStock['suppPrice'] ?>" />
+                                    <input type="text" onkeyup="calculation()" id="sup_price" name="suppPrice" class="sp medium" value="<?php echo $getStock['suppPrice'] ?>" />
                                 </td>
                             </tr>
                             <tr>
@@ -129,12 +129,14 @@ if (isset($_POST['submit'])) {
                                     <label>Product Name</label>
                                 </td>
                                 <td>
-                                    <select name="rf">
-                                        <option>Select Relative Factor</option>
+                                    <select name="productId">
+                                        <option>Select Product</option>
                                         <?php
                                         $getPro = $pd->getAllProduct();
                                         if ($getPro) {
-                                            while ($pro = $getPro->fetch_assoc()) { ?>
+                                            while ($pro = $getPro->fetch_assoc()) {
+                                                $productId = $pro['productId'];
+                                        ?>
                                                 <option <?php
                                                         if ($pro['productId'] == $getStock['productId']) { ?> selected="selected" <?php } ?> value="<?php echo $pro['productId'] ?>"> <?php echo $pro['productName'] ?> </option>
                                         <?php }
@@ -182,31 +184,26 @@ if (isset($_POST['submit'])) {
 </script> -->
 <!-- Form Calculation Script -->
 <script>
-    $(document).ready(function() {
-        $(".input,#sp").keyup(function() {
-            var qty = $(".qty").val();
-            var cqty = $("#cqty").val();
-            var sp = $("#sp").val();
-            var rf = $("#rf").val();
-            $("#cqty").val(qty * rf);
-            $("#cp").val(sp / cqty);
-            // if (!sp || sp == 'supplier price') {
-            //     $("#cp").val(0);
-            // } else {
-
-            // }
-        });
-    })
+    function calculation(event) {
+        var relative_factor = $('#rf').val();
+        var supplier_qty = $('#sup_qty').val();
+        var supplier_price = $('#sup_price').val();
+        console.log(relative_factor)
+        console.log(supplier_qty)
+        console.log(supplier_price)
+        var cqty = relative_factor * supplier_qty;
+        $('#cqty').val(cqty)
+    }
 </script>
 <!-- Load TinyMCE -->
-<script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
-<script type="text/javascript">
+<!-- <script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script> -->
+<!-- <script type="text/javascript">
     $(document).ready(function() {
         setupTinyMCE();
         setDatePicker('date-picker');
         $('input[type="checkbox"]').fancybutton();
         $('input[type="radio"]').fancybutton();
     });
-</script>
+</script> -->
 <!-- Load TinyMCE -->
 <?php include 'inc/footer.php'; ?>

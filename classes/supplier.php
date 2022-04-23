@@ -244,7 +244,7 @@ class Supplier
         return $deleteStock;
     }
 
-    public function updateStockById($editStockId, $data)
+    public function updateStockById($editStockId,$data)
     {
         $uomId = mysqli_real_escape_string($this->db->link, $data['uomId']);
         $supplierId = mysqli_real_escape_string($this->db->link, $data['supplierId']);
@@ -254,7 +254,7 @@ class Supplier
         $suppPrice = mysqli_real_escape_string($this->db->link, $data['suppPrice']);
         $convertedPrice = mysqli_real_escape_string($this->db->link, $data['convertedPrice']);
         $sellPrice = mysqli_real_escape_string($this->db->link, $data['sellPrice']);
-        $productId = mysqli_real_escape_string($this->db->link, $data['productId']);
+        $productId = mysqli_real_escape_string($this->db->link, $editStockId);
         if ($uomId == '' || $supplierId == '' || $suppQty == '' || $convertedQty == '' || $suppPrice == '' || $convertedPrice == '' || $sellPrice == '' || $rf == '' || $productId == '') {
             $msg = "<h6 class='error'>Field must not be empty</h6>";
             return $msg;

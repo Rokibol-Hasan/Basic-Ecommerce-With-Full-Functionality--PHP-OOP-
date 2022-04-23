@@ -10,12 +10,12 @@ $fm = new Format();
 if (isset($_GET['shiftid'])) {
 	$orderId = $_GET['shiftid'];
 	$getOrder = $ct->getAllOrderdProduct();
-	if ($getOrder) {
-		while ($row = $getOrder->fetch_assoc()) {
-			$productId = $row['productId'];
-			$stockChange = $ct->orderAndStock($productId);
-		}
-	}
+	// if ($getOrder) {
+	// 	while ($row = $getOrder->fetch_assoc()) {
+	// 		$productId = $row['productId'];
+	// 		$stockChange = $ct->orderAndStock($productId);
+	// 	}
+	// }
 	$updateStatus = $ct->updateStatus($orderId);
 }
 if (isset($_GET['removeOrder'])) {
